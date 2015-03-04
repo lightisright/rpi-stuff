@@ -1,0 +1,8 @@
+# Add following lines to /etc/rc.local to make slideshow & PIR detection working
+
+# launch slideshow
+/opt/slideshow/slideshow.sh > /dev/null
+
+# launch PIR detection for slideshow
+nohup /opt/slideshow/pir.py > /dev/null &
+
