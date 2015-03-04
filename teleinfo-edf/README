@@ -1,0 +1,5 @@
+# Add following lines to /etc/rc.local to create /dev/ttyAMA0 device
+
+# Teleinfo EDF : Enable TTY for serial (RS232) communication
+stty -F /dev/ttyAMA0 1200 sane evenp parenb cs7 -crtscts
+
