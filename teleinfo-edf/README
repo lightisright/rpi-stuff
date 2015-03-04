@@ -1,5 +1,5 @@
 #
-# NB : Teleinfo wires should be wired to GPIO14 (TXD) & GPIO15 (RXD)
+# NB : Teleinfo module wires should be wired to +3.3V, Ground & GPIO15 (RXD)
 #
 
 #
