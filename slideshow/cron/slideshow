@@ -1,0 +1,3 @@
+# Restart new slideshow every morning
+01 00     * * *     root   $(/opt/slideshow/slideshow.sh) > dev/null
+
