@@ -1,0 +1,4 @@
+# Check instant consumed power every minute
+*/1 *     * * *     root   if [ -f /var/www/teleinfo/teleinfo_puissance.php ]; then cd /var/www/teleinfo && php teleinfo_puissance.php; fi;
+59 23     * * *     root   if [ -f /var/www/teleinfo/teleinfo_conso.php ]; then cd /var/www/teleinfo && php teleinfo_conso.php; fi;
+
