@@ -1,4 +1,16 @@
+#
+# Disable the kernel log output on /dev/ttyAMA0
+# > Remove "console=ttyAMA0,115200 kgdboc=ttyAMA0,115200" from /boot/cmdline.txt
+
+#
+# Comment out the second line below at the bottom of /etc/inittab
+#
+# > #Spawn a getty on Raspberry Pi serial line
+# > #T0:23:respawn:/sbin/getty -L ttyAMA0 115200 vt100
+
+#
 # Add following lines to /etc/rc.local to create /dev/ttyAMA0 device
+#
 
 # Teleinfo EDF : Enable TTY for serial (RS232) communication
 stty -F /dev/ttyAMA0 1200 sane evenp parenb cs7 -crtscts
