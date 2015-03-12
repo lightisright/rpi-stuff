@@ -1,4 +1,7 @@
 # Add following lines to /etc/rc.local to make slideshow & PIR detection working
+#
+# NB: slideshow script uses tvservice script witch is a part of RPI firmware
+#     https://github.com/raspberrypi/firmware
 
 # launch slideshow
 /opt/slideshow/slideshow.sh > /dev/null
