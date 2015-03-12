@@ -1,0 +1,14 @@
+# ===============================================================================================
+# 1st method :
+# Uncomment following line if your internet box displays your public IP without login
+# ===============================================================================================
+# /opt/ovh-dynhost/ipcheck.py -r http://your-internet-box-ip dynhost-login dynhost-passwd dynhost
+
+# ===============================================================================================
+# 2nd method :
+# Uncomment following line if your internet box doesn't display your public IP without login
+# > script will to connect to external (internet) web page to get your public IP
+# > DON'T FORGET TO SET YOUR DYNHOST PARAMETERS (login, passwd, name) IN /opt/ovh-dynhost/dynhost
+# ===============================================================================================
+*/15 *     * * *     root   cd /opt/ovh-dynhost/ && ./dynhost > /dev/null
+
