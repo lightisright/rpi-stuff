@@ -30,3 +30,13 @@
 # Check your work by typing :
 # > cat /dev/ttyAMA0
 #
+
+#
+# Install stuff for teleinfo-edf scripts
+# > aptitude install php5-cli php5-sqlite
+#
+
+#
+# Configure teleinfo-edf device ($dev var) : /dev/ttyAMA0 for RPI, /dev/ttyS1 for PcDuino
+# > vim teleinfo_func.php
+#

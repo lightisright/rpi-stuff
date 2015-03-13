@@ -1,13 +1,16 @@
 <?php
 
   $sqlite = 'teleinfo.sqlite';
+  $dev = '/dev/ttyS1';
 
   //
   //  renvoie une trame teleinfo complete sous forme d'array
   //
   function getTeleinfo () {
 
-    $handle = fopen ('/dev/ttyAMA0', "r"); // ouverture du flux
+    global $dev;
+
+    $handle = fopen ($dev, "r"); // ouverture du flux
 
     while (fread($handle, 1) != chr(2)); // on attend la fin d'une trame pour commencer a avec la trame suivante
 
