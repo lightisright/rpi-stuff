@@ -1,17 +1,21 @@
 #!/bin/bash
 
-# pour stopper le diaporama
+# kill fbi to stop display
 killall fbi
 
-# choose which diectory to display
-IMGDIR="/home/gzav/img"
-RDMDIR="/home/gzav/img"
+# choose which directory to display
+IMGDIR="/your/photos/path"
+
+# check if a specific directory is choosen
+if [ $# -eq 1 ] && [ ! -z "$1" ] && [ -d "$IMGDIR/$1" ];
+then
+	RDMDIR="$IMGDIR/$1"
+	
+# else: choose random one
+else
+
 NBDIR=$(ls -1d $IMGDIR/* | wc -l)
-#echo "NB DIR = $NBDIR"
-#NBDIR=$((NBDIR+1))
-#echo "NB DIR = $NBDIR"
 RDM=$((RANDOM%${NBDIR}))
-#echo "RDM = $RDM - $((RANDOM))"
 j=0; 
 for i in `ls -1d $IMGDIR/*`; 
 do 
@@ -24,8 +28,14 @@ do
   j=$((j+1)); 
 done;
 
+fi;
 
-# démarrage du diaporama
+echo "Display directory: $RDMDIR"
+
+# start display
 nohup fbi -T 2 -noverbose --autodown -t 6 $RDMDIR/* > /dev/null
+
+# specify command
 #nohup fbi -T 2 -m 1280x1024-60 -noverbose --autodown -u -t 6 /home/gzav/img/* > /dev/null
+
 
