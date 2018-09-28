@@ -1,7 +1,7 @@
 <?php
 
   $sqlite = 'teleinfo.sqlite';
-  $dev = '/dev/ttyS1';
+  $dev = '/dev/ttyAMA0';
 
   //
   //  renvoie une trame teleinfo complete sous forme d'array
