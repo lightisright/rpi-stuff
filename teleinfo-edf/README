@@ -25,7 +25,22 @@
 #
 # ># Teleinfo EDF : Enable TTY for serial (RS232) communication
 # >stty -F /dev/ttyAMA0 1200 sane evenp parenb cs7 -crtscts
+
+# --------------------------------------------------------------------
+# Notes from last install (cat /etc/debian_version returns 9.1)
+# --------------------------------------------------------------------
 #
+# /boot/cmdline.txt
+# dwc_otg.lpm_enable=0 console=tty1 root=PARTUUID=2518a153-02 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait
+#
+# /etc/rc.local
+# >stty -F /dev/ttyAMA0 1200 sane parenb -parodd cs7 -isig -icrnl -crtscts -icanon
+#
+# Add to /boot/config.txt
+# > enable_uart=1
+# --------------------------------------------------------------------
+
+
 
 #
 # Restart your RPI
@@ -46,3 +61,4 @@
 # Configure teleinfo-edf device ($dev var) : /dev/ttyAMA0 for RPI, /dev/ttyS1 for PcDuino
 # > vim teleinfo_func.php
 #
+
