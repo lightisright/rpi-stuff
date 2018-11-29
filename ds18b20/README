@@ -4,9 +4,14 @@
 # w1_gpio
 # w1_therm
 #
+# For Raspbian 9.1, install following packages: python-pigpio python-gpiozero
+#
 # After restart you should see your device in /sys/bus/w1/devices/28-.............
 # NB : your 1-wire devices should be wired to GPIO4 (I2C)
 #
 # If you encounter problems with with your webcam, this could be because  of GPIO4 & 1-wire module conflict, see :
 # http://www.framboise314.fr/mesure-de-temperature-1-wire-ds18b20-avec-le-raspberry-pi/
+#
+# > Add following lines to /boot/config.txt to fix a bug for GPIO4
+#   dtoverlay=w1-gpio,gpiopin=4
 #
