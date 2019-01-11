@@ -36,6 +36,8 @@
 # /etc/rc.local
 # >stty -F /dev/ttyAMA0 1200 sane parenb -parodd cs7 -isig -icrnl -crtscts -icanon
 #
+# Delete in /boot/config.txt
+# > console=serial0,115200
 # Add to /boot/config.txt
 # > enable_uart=1
 # --------------------------------------------------------------------
