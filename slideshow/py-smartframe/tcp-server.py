@@ -3,59 +3,24 @@
 import socket
 import sys
 import os
-import random
+import smartframe
+
 #from subprocess import call
+
+# Display traces if True
+debug = False
+exec_sys_commands = False
 
 # Photo directory
 ##imgDir="/home/gzav/img"
 imgDir = "/home/gzav/Documents/xavier/git/rpi-stuff/"
 
-# Display traces if True
-debug = False
-
-# Executes system commands (fbi startup / shutdown...) if True
-exec_sys_commands = False
-
-def getRandomDir(imgPath):
-
-    # List subdirectories
-    photodirs = []
-    for dirname in os.listdir(imgPath):
-        if os.path.isdir(os.path.join(imgPath, dirname)) and dirname[0]!='.':
-            photodirs.append(dirname)
-
-    print(photodirs)
-    # find a random photo directory to show
-    randDir = photodirs[random.randint(0, len(photodirs)-1)]
-
-    print("Selected random directory: %s" % randDir)
-    return randDir
-
-
-def display(dirpath):
-
-    print("Display slideshow: %s" % dirpath)
-
-    if exec_sys_commands:
-        os.system("killall fbi && sleep 5")
-        ##os.sleep(5)
-        # nohup fbi -T 2 -noverbose --autodown -t 6 $RDMDIR/* > /dev/null
-        os.system("nohup fbi -T 2 -noverbose --autodown -t 6 %s/* > /dev/null" % dirpath)
-        # other fbi test with os.call
-        ##call(["nohup", "fbi", "-T 2", "", "", "", "",])
-
-
-def displayRandomDir(dirname):
-    slideshowDir = getRandomDir(dirname)
-    print("Display slideshow: %s" % slideshowDir)
-    display(os.path.join(dirname, slideshowDir))
-    print("Display slideshow: %s" % slideshowDir)
-    return slideshowDir
-
-
 def main():
+
+    sf = smartframe.smartframe(exec_sys_commands)
+
     # Display random dir by default
-    displayRandomDir(imgDir)
+    sf.displayRandomDir(imgDir)
 
     # Create a TCP/IP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -94,7 +59,7 @@ def main():
 
                 # Ask for a random directory to display
                 if data == b"rand":
-                    slideshowDir = displayRandomDir(imgDir)
+                    slideshowDir = sf.displayRandomDir(imgDir)
                     connection.sendall(b"Display slideshow: %s\n" % slideshowDir.encode())
                 # exit
                 elif data == b"exit" or data == b"quit" or data == b"\xff\xf4\xff":
@@ -103,11 +68,8 @@ def main():
                 # ask for a specific folder to display
                 elif data:
                     slideshowPath = os.path.join(imgDir, data.decode())
-                    if os.path.exists(slideshowPath):
-                        display(slideshowPath)
-                        connection.sendall(b"Display slideshow: %s\n" % slideshowPath.encode())
-                    else:
-                        connection.sendall(b"Directory doesn't exist: %s\n" % slideshowPath.encode())
+                    msg = sf.display(slideshowPath)
+                    connection.sendall(msg.encode())
                 
         finally:
             # Clean up the connection
