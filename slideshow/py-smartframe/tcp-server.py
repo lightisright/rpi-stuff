@@ -9,6 +9,7 @@ import smartframe
 
 # Display traces if True
 debug = False
+# Executes system commands (fbi startup / shutdown...) if True
 exec_sys_commands = False
 
 # Photo directory

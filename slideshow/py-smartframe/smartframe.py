@@ -6,8 +6,7 @@ class smartframe:
 
     def __init__(self, exec_sys_cmd: bool):
 
-        # Executes system commands (fbi startup / shutdown...) if True
-        self.exec_sys_commands = False
+        self.exec_sys_commands = exec_sys_cmd
 
     def dirIndex(self, imgPath):
 
