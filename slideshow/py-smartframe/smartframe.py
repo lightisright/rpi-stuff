@@ -9,7 +9,7 @@ class smartframe:
         # Executes system commands (fbi startup / shutdown...) if True
         self.exec_sys_commands = False
 
-    def getRandomDir(self, imgPath):
+    def dirIndex(self, imgPath):
 
         # List subdirectories
         photodirs = []
@@ -18,6 +18,14 @@ class smartframe:
                 photodirs.append(dirname)
 
         print(photodirs)
+
+        return photodirs
+
+
+    def getRandomDir(self, imgPath):
+
+        photodirs = self.dirIndex(imgPath)
+
         # find a random photo directory to show
         randDir = photodirs[random.randint(0, len(photodirs)-1)]
 
@@ -45,9 +53,7 @@ class smartframe:
         return msg
 
 
-    def displayRandomDir(self, dirname):
-        slideshowDir = self.getRandomDir(dirname)
-        print("Display slideshow: %s" % slideshowDir)
-        self.display(os.path.join(dirname, slideshowDir))
-        print("Display slideshow: %s" % slideshowDir)
+    def displayRandomDir(self, imgPath):
+        slideshowDir = self.getRandomDir(imgPath)
+        self.display(os.path.join(imgPath, slideshowDir))
         return slideshowDir
