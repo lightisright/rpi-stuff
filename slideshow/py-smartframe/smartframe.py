@@ -2,18 +2,23 @@ import sys
 import os
 import random
 
-class smartframe: 
+class SmartFrame: 
 
-    def __init__(self, exec_sys_cmd: bool):
+    def __init__(self, imgPath, exec_sys_commands: bool):
 
-        self.exec_sys_commands = exec_sys_cmd
+        self.exec_sys_commands = exec_sys_commands
+        self.imgPath = imgPath
+        self.currentAlbum = ""
 
-    def dirIndex(self, imgPath):
+    def getCurrentAlbum(self):
+        return self.currentAlbum
+
+    def dirIndex(self):
 
         # List subdirectories
         photodirs = []
-        for dirname in os.listdir(imgPath):
-            if os.path.isdir(os.path.join(imgPath, dirname)) and dirname[0]!='.':
+        for dirname in os.listdir(self.imgPath):
+            if os.path.isdir(os.path.join(self.imgPath, dirname)) and dirname[0]!='.':
                 photodirs.append(dirname)
 
         print(photodirs)
@@ -21,9 +26,9 @@ class smartframe:
         return photodirs
 
 
-    def getRandomDir(self, imgPath):
+    def _getRandomDir(self):
 
-        photodirs = self.dirIndex(imgPath)
+        photodirs = self.dirIndex()
 
         # find a random photo directory to show
         randDir = photodirs[random.randint(0, len(photodirs)-1)]
@@ -32,11 +37,14 @@ class smartframe:
         return randDir
 
 
-    def display(self, dirpath):
+    def display(self, dirname):
+
+        dirpath = os.path.join(self.imgPath, dirname)
 
         print("Display slideshow: %s" % dirpath)
 
         if os.path.exists(dirpath):
+            self.currentAlbum = dirname
             msg = "Display slideshow: %s\n" % dirpath
         else:
             msg = "Directory doesn't exist: %s\n" % dirpath
@@ -52,7 +60,7 @@ class smartframe:
         return msg
 
 
-    def displayRandomDir(self, imgPath):
-        slideshowDir = self.getRandomDir(imgPath)
-        self.display(os.path.join(imgPath, slideshowDir))
+    def displayRandomDir(self):
+        slideshowDir = self._getRandomDir()
+        self.display(slideshowDir)
         return slideshowDir
