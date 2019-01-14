@@ -4,7 +4,7 @@ import sys
 import os
 import smartframe
 from tcp_server import TcpServer
-import http_server
+from http_server import HttpServer
 import threading
 
 # Indicates if script are running on RPI or not (for debug purpose, PIR & FBI management should not be enables)
@@ -39,7 +39,7 @@ def start_tcp_server():
     tcps.start()
 
 def start_http_server():
-    https = http_server.HttpServer(http_hostname, http_port, sf, debug)
+    https = HttpServer(http_hostname, http_port, sf, debug)
     https.start()
 
 def main():
