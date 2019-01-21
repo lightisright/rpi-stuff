@@ -1,4 +1,12 @@
 
+import sqlite3
+import datetime
+
+def dict_factory(cursor, row):
+    d = {}
+    for idx, col in enumerate(cursor.description):
+        d[col[0]] = row[idx]
+    return d
 
 class TeleinfoEdf(ABC.abc)
 
@@ -14,6 +22,22 @@ class TeleinfoEdf(ABC.abc)
         global $sqlite;
         $months    = array('01' => 'janv', '02' => 'fev', '03' => 'mars', '04' => 'avril', '05' => 'mai', '06' => 'juin', '07' => 'juil', '08' => 'aout', '09' => 'sept', '10' => 'oct', '11' => 'nov', '12' => 'dec');
         $now  = time();
+        """
+        db = sqlite3.connect("teleinfo-edf.sqlite")
+        delta = datetime.timedelta(days=(-1*numberOfDays))
+        dt = datetime.datetime(delta.year,delta.month,delta.day).timestamp()
+        nw = datetime.datetime.now().timestamp()
+        d = datetime.timedelta(days=(1*7)).total_seconds()
+        min = nw-d
+
+        db.row_factory = dict_factory
+        cursor = db.cursor()
+        db.execute("SELECT * FROM puissance WHERE timestamp > "+str(int(min))+" and timestamp < "+str(int(nw))+" ORDER BY timestamp ASC;")
+        results = cursor.fetchall()
+        print results
+        db.close()
+ 
+        """
         $past = strtotime("-$nb_days day", $now);
 
         $db = new SQLite3($sqlite);
