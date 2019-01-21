@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!python3
 
 import sys
 import os
@@ -6,24 +6,29 @@ import smartframe
 from tcp_server import TcpServer
 from http_server import HttpServer
 import threading
+import configparser
+import io
 
+# Load the configuration file
+config = configparser.ConfigParser(allow_no_value=True)
+config.read("/etc/py-smartframe/config.ini")
+
+debug = config.getboolean('general', 'debug')   # Display traces if True
 # Indicates if script are running on RPI or not (for debug purpose, PIR & FBI management should not be enables)
-real_rpi_install = False
-
-debug = False                                           # Display traces if True
-imgDir = "/home/gzav/Documents/xavier/git/rpi-stuff/"   # Photo directory (/home/gzav/img)
+real_rpi_install = config.getboolean('general', 'real-rpi-install')
+imgDir = config.get('general', 'img-dir')       # Photo directory
 
 # HTTP server options
-http_hostname = "localhost" # IP or server name
-http_port = 8080            # port as integer
+http_hostname = config.get('http-server', 'listening-ip')
+http_port = config.getint('http-server', 'port')
 
 # TCP server options
-tcp_hostname = "localhost"  # IP or server name
-tcp_port = 10003            # port as integer
+tcp_hostname = config.get('tcp-server', 'listening-ip')
+tcp_port = config.getint('tcp-server', 'port')
 
 # PIR management options
-shutoff_delay = 300         # seconds
-pir_pin = 17                # 11 on the board
+shutoff_delay = config.getint('pir', 'pin-number')    # seconds
+pir_pin = config.getint('pir', 'shutoff-delay')
 
 # instanciate sf API
 sf = smartframe.SmartFrame(imgDir, real_rpi_install)
