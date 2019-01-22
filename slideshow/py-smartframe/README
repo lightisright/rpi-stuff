@@ -1,3 +1,17 @@
 ```
 pip install bottle
+
+# create configuration file
+sudo mkdir /etc/py-smartframe/
+sudo cp config.ini.sample /etc/py-smartframe/config.ini
+
+# configure
+vim /etc/py-smartframe/config.ini
+
+# test
+./py-smartframe
+
+# configure at startup: add this line to /etc/rc.local
+# nohup /path/to/py-smartframe > /dev/null &
+
 ```

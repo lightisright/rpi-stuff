@@ -1,0 +1,17 @@
+[general]
+img-dir=/path/to/your/img/directory
+real-rpi-install=false
+debug=false
+
+[tcp-server]
+listening-ip=localhost
+port=10003
+
+[http-server]
+listening-ip=localhost
+port=8080
+
+[pir]
+pin-number=17
+shutoff-delay=300
+
