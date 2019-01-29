@@ -40,9 +40,11 @@ class PirManager:
 
     def _turn_on(self):
         # activate HDMI output & right terminal display
+        print("PIR ON")
         subprocess.call("tvservice -p && sleep 0.2 && chvt 1 && sleep 0.2 && chvt 2", shell=True)
 
     def _turn_off(self):
         # deactivate HDMI output
+        print("PIR OFF")
         subprocess.call("tvservice -o", shell=True)
 
