@@ -26,6 +26,21 @@ class SmartFrame:
         return photodirs
 
 
+    def imgIndex(self, dirname):
+
+        # List subdirectories
+        imglst = []
+        dirpath = os.path.join(self.imgPath, dirname)
+        if os.path.isdir(dirpath):
+            for f in os.listdir(dirpath):
+                if os.path.isfile(os.path.join(dirpath, f)):
+                    imglst.append("img/" + dirname + "/" + f)
+
+        print(imglst)
+
+        return imglst
+
+
     def _getRandomDir(self):
 
         photodirs = self.dirIndex()
@@ -53,7 +68,7 @@ class SmartFrame:
             os.system("killall fbi && sleep 5")
             ##os.sleep(5)
             # nohup fbi -T 2 -noverbose --autodown -t 6 $RDMDIR/* > /dev/null
-            os.system("nohup fbi -T 2 -noverbose --autodown -t 6 %s/* > /dev/null" % dirpath)
+            os.system("fbi -T 2 -noverbose --autodown -t 6 %s/* > /dev/null" % dirpath)
             # other fbi test with os.call
             ##call(["nohup", "fbi", "-T 2", "", "", "", "",])
 
