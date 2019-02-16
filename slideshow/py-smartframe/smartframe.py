@@ -19,9 +19,7 @@ class SmartFrame:
         photodirs = []
         for dirname in os.listdir(self.imgPath):
             if os.path.isdir(os.path.join(self.imgPath, dirname)) and dirname[0]!='.':
-                photodirs.append(dirname)
-
-        print(photodirs)
+                photodirs.append({"dirID": dirname, "dirname": dirname})
 
         return photodirs
 
@@ -34,11 +32,18 @@ class SmartFrame:
         if os.path.isdir(dirpath):
             for f in os.listdir(dirpath):
                 if os.path.isfile(os.path.join(dirpath, f)):
-                    imglst.append("img/" + dirname + "/" + f)
-
-        print(imglst)
+                    imglst.append({"imgID": f, "filename": "image/" + dirname + "/" + f})
 
         return imglst
+
+
+    def getImage(self, dirname, filename):
+        """ Dumps image file content for display """
+        imgpath = os.path.join(self.imgPath, dirname, filename)
+        if os.path.isfile(imgpath):
+            file = open(imgpath, 'rb') 
+            return file.read()
+        return "File doesn't exist"
 
 
     def _getRandomDir(self):
@@ -48,8 +53,8 @@ class SmartFrame:
         # find a random photo directory to show
         randDir = photodirs[random.randint(0, len(photodirs)-1)]
 
-        print("Selected random directory: %s" % randDir)
-        return randDir
+        print("Selected random directory: %s" % randDir['dirname'])
+        return randDir['dirname']
 
 
     def display(self, dirname):

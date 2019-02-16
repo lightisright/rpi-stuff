@@ -1,9 +1,11 @@
-from bottle import route, run, app
+from bottle import Bottle, route, run, error
 import os.path
 import json
 import smartframe
 
 sf = smartframe.SmartFrame("", False)
+
+app = application = Bottle()
 
 class HttpServer:
 
@@ -16,7 +18,7 @@ class HttpServer:
 
     def start(self):
         if self.debug:
-            print('Slideshow HTTP server started - ', self.hostname, ':', self.port)
+            print('Slideshow HTTP server started - ' + self.hostname + ':' + self.port)
             
         run(host=self.hostname, port=self.port, debug=self.debug)
 
@@ -27,7 +29,7 @@ class HttpServer:
 @route('/')
 def index():
     #return "py-smartframe HTTP server index !"
-    return return_res("index.html")
+    return display_resource("index.html")
 
 @route('/current/')
 def current():
@@ -43,8 +45,11 @@ def display(album):
     sf.display(album)
     return "Currently displaying album: " + album
 
-@route('/http/<filename>')
+@route('/res/<filename>')
 def return_res(filename):
+    return display_resource("res/" + filename)
+
+def display_resource(filename):
     if os.path.isfile("./http-res/" + filename):
         file = open("./http-res/" + filename, 'r') 
         return file.read() 
@@ -52,7 +57,7 @@ def return_res(filename):
 
 @route('/albums/')
 def albums():
-    return json.dumps(sf.dirIndex)
+    return json.dumps(sf.dirIndex())
 
 @route('/albums/<album>/index/')
 def album_index(album):
@@ -61,7 +66,7 @@ def album_index(album):
 @route('/image/<album>/<filename>')
 def display_image(album, filename):
     # TO BE DONE
-    return "Display image:" + filename + " (album: " + album + ")"
+    return sf.getImage(album, filename)
 
 @route('/print/<album>/<filename>')
 def print(album, filename):

@@ -5,10 +5,10 @@
   <title>Bootstrap Theme Simply Me</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http/res/bootstrap.min.css">
-  <link href="http/res/montserrat.css" rel="stylesheet">
-  <script src="http/res/jquery.min.js"></script>
-  <script src="http/res/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="res/bootstrap.min.css">
+  <link href="res/montserrat.css" rel="stylesheet">
+  <script src="res/jquery.min.js"></script>
+  <script src="res/bootstrap.min.js"></script>
   <style>
   body {
       font: 20px Montserrat, sans-serif;
@@ -134,7 +134,7 @@ html,body{height:100%;}
 -->
 <!-- Footer -->
 <footer class="container-fluid bg-4 text-center">
-  <p>Bootstrap Theme Made By <a href="http://www.w3schools.com">www.w3schools.com</a></p> 
+  <p>Powered by <em>py-smartframe</em> (Github)</p> 
 </footer>
 
 <script type="text/javascript">
@@ -145,7 +145,8 @@ curimg = 0;
 /* directory listing */
 dirlst = function() {
 	var options = $("#dirlst");
-	$.getJSON("dirlst/", function(result) {
+	$.getJSON("albums/", function(result) {
+    options.append($("<option />").val("").text("Select Album"));
 		$.each(result, function() {
 			options.append($("<option />").val(this.dirID).text(this.dirname));
 		});
@@ -162,7 +163,7 @@ $('#albummenu').click( function() {
 $('#dirlst').change( function() {
 	imglst = new Array();
 	curimg = 0;
-	$.getJSON("imglst/"+$('#dirlst').val(), function(result) {
+	$.getJSON("/albums/"+$('#dirlst').val()+"/index/", function(result) {
 		$.each(result, function() {
 			imglst.push(this.filename);
 		});
