@@ -1,4 +1,4 @@
-from bottle import route, run
+from bottle import route, run, app
 import os.path
 import json
 import smartframe
@@ -36,12 +36,12 @@ def current():
 @route('/random/')
 def random():
     sf.displayRandomDir()
-    return "Display random dir"
+    return "Display random album"
 
-@route('/display/<dirname>')
-def display(dirname):
-    sf.display(dirname)
-    return "Display dirname " + dirname
+@route('/display/<album>')
+def display(album):
+    sf.display(album)
+    return "Currently displaying album: " + album
 
 @route('/http/<filename>')
 def return_res(filename):
@@ -50,25 +50,28 @@ def return_res(filename):
         return file.read() 
     return error404(filename)
 
-@route('/dirlst/')
-def dirlst():
+@route('/albums/')
+def albums():
     return json.dumps(sf.dirIndex)
 
-@route('/imglst/<dir>')
-def imglst():
-    return ""
+@route('/albums/<album>/index/')
+def album_index(album):
+    return json.dumps(sf.imgIndex(album))
 
-@route('/delete/<dir>')
-def delete():
-    return ""
+@route('/image/<album>/<filename>')
+def display_image(album, filename):
+    # TO BE DONE
+    return "Display image:" + filename + " (album: " + album + ")"
 
-@route('/print/<dir>')
-def print():
-    return ""
+@route('/print/<album>/<filename>')
+def print(album, filename):
+    # TO BE DONE
+    return "Add image to print list:" + filename + " (album: " + album + ")"
 
-@route('/showonphotoframe/<dir>')
-def showonphotoframe(dir):
-    return display(dir)
+@route('/delete/<album>/<filename>')
+def delete(album, filename):
+    # TO BE DONE
+    return "Add image to delete list:" + filename + " (album: " + album + ")"
 
 @app.error(404)  # changed from OP
 def error404(error):
