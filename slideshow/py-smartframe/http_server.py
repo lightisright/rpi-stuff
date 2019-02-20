@@ -25,8 +25,8 @@ class HttpServer:
 
 @route('')
 @route('/')
-@route('/index'
-@route('/home'))
+@route('/index')
+@route('/home')
 def index():
     #return "py-smartframe HTTP server index !"
     return display_resource("index.html")
