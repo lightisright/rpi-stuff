@@ -16,10 +16,7 @@ class HttpServer:
         global sf
         sf = smartframe
 
-    def start(self):
-        if self.debug:
-            print('Slideshow HTTP server started - ' + self.hostname + ':' + self.port)
-            
+    def start(self):     
         run(host=self.hostname, port=self.port, debug=self.debug)
 
 
