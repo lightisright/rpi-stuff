@@ -1,4 +1,4 @@
-from bottle import Bottle, route, run, error
+from bottle import Bottle, route, run, error, static_file
 import os.path
 import json
 import smartframe
@@ -50,10 +50,7 @@ def return_res(filename):
     return display_resource("res/" + filename)
 
 def display_resource(filename):
-    if os.path.isfile("./http-res/" + filename):
-        file = open("./http-res/" + filename, 'r') 
-        return file.read() 
-    return error404(filename)
+    return static_file(filename, root='./http-res/')
 
 @route('/albums/')
 def albums():
