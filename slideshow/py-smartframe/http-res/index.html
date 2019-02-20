@@ -193,7 +193,7 @@ $('#print').click( function() {
  
 /* start slideshow on photoframe */
 $('#showonphotoframe').click( function() { 	
-	$.getJSON("showonphotoframe/"+$('#dirlst').val(), function(result) {
+	$.getJSON("display/"+$('#dirlst').val(), function(result) {
 		$('cmd').push(result.text);
 	});
  });
