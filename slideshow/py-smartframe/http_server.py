@@ -9,7 +9,7 @@ app = application = Bottle()
 
 class HttpServer:
 
-    def __init__(self, hostname, port, smartframe: smartframe.SmartFrame, debug):
+    def __init__(self, smartframe: smartframe.SmartFrame, hostname, port, debug):
         self.hostname = hostname
         self.port = port
         self.debug = debug
@@ -62,18 +62,19 @@ def album_index(album):
 
 @route('/image/<album>/<filename>')
 def display_image(album, filename):
-    # TO BE DONE
-    return sf.getImage(album, filename)
+    return static_file(filename, sf.getAlbumPath(album))
 
 @route('/print/<album>/<filename>')
 def print(album, filename):
-    # TO BE DONE
-    return "Add image to print list:" + filename + " (album: " + album + ")"
+    if sf.printImage(album, filename):
+        return "Image added to print file list"
+    return "Error"
 
 @route('/delete/<album>/<filename>')
 def delete(album, filename):
-    # TO BE DONE
-    return "Add image to delete list:" + filename + " (album: " + album + ")"
+    if sf.deleteImage(album, filename):
+        return "Image deleted & added to delete file list"
+    return "Error"
 
 @app.error(404)  # changed from OP
 def error404(error):

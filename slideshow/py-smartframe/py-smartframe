@@ -22,6 +22,10 @@ imgDir = config.get('general', 'img-dir')       # Photo directory
 http_hostname = config.get('http-server', 'listening-ip')
 http_port = config.getint('http-server', 'port')
 
+# Print/delete image file cache path
+print_file = config.get('files-path', 'print')
+delete_file = config.get('files-path', 'delete')
+
 # TCP server options
 tcp_hostname = config.get('tcp-server', 'listening-ip')
 tcp_port = config.getint('tcp-server', 'port')
@@ -31,7 +35,7 @@ shutoff_delay = config.getint('pir', 'shutoff-delay')    # seconds
 pir_pin = config.getint('pir', 'pin-number')
 
 # instanciate sf API
-sf = smartframe.SmartFrame(imgDir, real_rpi_install)
+sf = smartframe.SmartFrame(imgDir, print_file, delete_file, real_rpi_install)
 
 
 def start_pir():
@@ -44,7 +48,7 @@ def start_tcp_server():
     tcps.start()
 
 def start_http_server():
-    https = HttpServer(http_hostname, http_port, sf, debug)
+    https = HttpServer(sf, http_hostname, http_port, debug)
     https.start()
 
 def main():

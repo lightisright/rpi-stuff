@@ -4,11 +4,13 @@ import random
 
 class SmartFrame: 
 
-    def __init__(self, imgPath, exec_sys_commands: bool):
+    def __init__(self, imgPath, files_to_print_path, files_to_delete_path, exec_sys_commands: bool):
 
         self.exec_sys_commands = exec_sys_commands
         self.imgPath = imgPath
         self.currentAlbum = ""
+        self.files_to_print_path = files_to_print_path
+        self.files_to_delete_path = files_to_delete_path
 
     def getCurrentAlbum(self):
         return self.currentAlbum
@@ -36,15 +38,31 @@ class SmartFrame:
 
         return imglst
 
-
-    def getImage(self, dirname, filename):
-        """ Dumps image file content for display """
+    def deleteImage(self, dirname, filename) -> bool:
+        """ delete image then add to delete file """
         imgpath = os.path.join(self.imgPath, dirname, filename)
-        if os.path.isfile(imgpath):
-            file = open(imgpath, 'rb') 
-            return file.read()
-        return "File doesn't exist"
+        if self._addToFileList(self.files_to_delete_path, imgpath, dirname, filename):
+            os.remove(imgpath)
+            return True
+        return False
 
+    def printImage(self, dirname, filename) -> bool:
+        """ delete image then add to delete file """
+        imgpath = os.path.join(self.imgPath, dirname, filename)
+        return self._addToFileList(self.files_to_print_path, imgpath, dirname, filename)
+
+    def _addToFileList(self, filelistpath, filepath, dirname, filename) -> bool:
+        """ delete image then add to delete file """
+        if os.path.isfile(filelistpath) and os.path.isfile(filepath):
+            file = open(filelistpath, 'w+')
+            file.write(filename+"\n")
+            file.close()
+            return True
+        return False
+
+    def getAlbumPath(self, dirname):
+        """ Returns album directory full path """
+        return os.path.join(self.imgPath, dirname)
 
     def _getRandomDir(self):
 

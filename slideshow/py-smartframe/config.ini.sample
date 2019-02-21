@@ -11,6 +11,10 @@ port=10003
 listening-ip=localhost
 port=8080
 
+[files-path]
+print=/path/to/files-to-print-file.txt
+delete=/path/to/file-to-delete-file.txt
+
 [pir]
 pin-number=17
 shutoff-delay=300
