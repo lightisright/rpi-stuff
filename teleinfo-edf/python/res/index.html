@@ -10,7 +10,7 @@
 
     <script>
         $.getJSON(
-            'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json',
+            'data.json',
             function (data) {
         
                 Highcharts.chart('container', {
@@ -18,7 +18,7 @@
                         zoomType: 'x'
                     },
                     title: {
-                        text: 'USD to EUR exchange rate over time'
+                        text: 'Power consumption (Watt)'
                     },
                     subtitle: {
                         text: document.ontouchstart === undefined ?
@@ -29,7 +29,7 @@
                     },
                     yAxis: {
                         title: {
-                            text: 'Exchange rate'
+                            text: 'Watt'
                         }
                     },
                     legend: {
@@ -64,7 +64,7 @@
         
                     series: [{
                         type: 'area',
-                        name: 'USD to EUR',
+                        name: 'Instant consumption (Watt)',
                         data: data
                     }]
                 });
