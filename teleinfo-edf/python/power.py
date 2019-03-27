@@ -11,6 +11,12 @@ def dict_factory(cursor, row):
             d[col[0]] = row[idx]
     return d
 
+def power_factory(cursor, row):
+    # x1000 for HighCharts rendering
+    return [row[0]*1000,row[4]]
+
+
+
 class TeleinfoEdf():
 
     def __init__(self):
@@ -19,11 +25,14 @@ class TeleinfoEdf():
     def debug(self,msg: str):
         print(msg)
 
-    def getPower (self, numberOfDays:int):
+    def getPower(self, numberOfDays:int, start:datetime = datetime.datetime.now()):
+        return self._getData(numberOfDays, power_factory, start)
+
+    def _getData (self, numberOfDays:int, dict_factory, start:datetime = datetime.datetime.now()):
         
         db = sqlite3.connect("teleinfo-edf.sqlite")
 
-        d2=datetime.datetime.now()
+        d2=start
         t2=d2.timestamp()
 
         delta = datetime.timedelta(days=(-1*numberOfDays)).total_seconds()
