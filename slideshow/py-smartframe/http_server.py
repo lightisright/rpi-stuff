@@ -23,10 +23,7 @@ class HttpServer:
 
 # BOTTLE ROUTES
 
-@route('')
 @route('/')
-@route('/index')
-@route('/home')
 def index():
     #return "py-smartframe HTTP server index !"
     return display_resource("index.html")
