@@ -112,6 +112,7 @@ html,body{height:100%;}
 <script type="text/javascript">
 
 imglst = new Array();
+imgIDs = new Array();
 curimg = 0;
 
 /* directory listing */
@@ -134,10 +135,12 @@ $('#albummenu').click( function() {
 /* image listing */
 $('#dirlst').change( function() {
 	imglst = new Array();
+  imgIDs = new Array();
 	curimg = 0;
 	$.getJSON("/albums/"+$('#dirlst').val()+"/index/", function(result) {
 		$.each(result, function() {
 			imglst.push(this.filename);
+      imgIDs.push(this.imgID);
 		});
 		curimg=0; $('#img').attr('src', imglst[curimg]);
 		$('#img').css('display','block');
@@ -151,14 +154,14 @@ $('#prev').click( function() { curimg=(curimg>0)?curimg-1:imglst.length-1; $('#i
 
 /* image deletion */
 $('#del').click( function() { 	
-	$.getJSON("delete/"+$('#dirlst').val()+"/"+imglst[curimg], function(result) {
+	$.getJSON("delete/"+$('#dirlst').val()+"/"+imgIDs[curimg], function(result) {
 		$('cmd').push(result.text);
 	});
  });
 
 /* image printing */
 $('#print').click( function() { 	
-	$.getJSON("print/"+$('#dirlst').val()+"/"+imglst[curimg], function(result) {
+	$.getJSON("print/"+$('#dirlst').val()+"/"+imgIDs[curimg], function(result) {
 		$('cmd').push(result.text);
 	});
  });
