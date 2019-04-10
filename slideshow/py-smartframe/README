@@ -15,3 +15,7 @@ vim /etc/py-smartframe/config.ini
 # nohup /path/to/py-smartframe > /dev/null &
 
 ```
+
+## Print & delete file list
+
+Creating the files manually is mandatory. PySmartframe won't do it for you.
