@@ -3,8 +3,6 @@ import os.path
 import json
 import smartframe
 
-sf = smartframe.SmartFrame("", False)
-
 app = application = Bottle()
 
 class HttpServer:
