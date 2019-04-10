@@ -151,14 +151,14 @@ $('#prev').click( function() { curimg=(curimg>0)?curimg-1:imglst.length-1; $('#i
 
 /* image deletion */
 $('#del').click( function() { 	
-	$.getJSON("delete/"+$('#dirlst').val()+"&id="+imglst[curimg], function(result) {
+	$.getJSON("delete/"+$('#dirlst').val()+"/"+imglst[curimg], function(result) {
 		$('cmd').push(result.text);
 	});
  });
 
 /* image printing */
 $('#print').click( function() { 	
-	$.getJSON("print/"+$('#dirlst').val()+"&id="+imglst[curimg], function(result) {
+	$.getJSON("print/"+$('#dirlst').val()+"/"+imglst[curimg], function(result) {
 		$('cmd').push(result.text);
 	});
  });
