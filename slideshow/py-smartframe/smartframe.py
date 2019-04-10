@@ -54,7 +54,7 @@ class SmartFrame:
     def _addToFileList(self, filelistpath, filepath, dirname, filename) -> bool:
         """ delete image then add to delete file """
         if os.path.isfile(filelistpath) and os.path.isfile(filepath):
-            file = open(filelistpath, 'w+')
+            file = open(filelistpath, 'a')
             file.write(filename+"\n")
             file.close()
             return True
