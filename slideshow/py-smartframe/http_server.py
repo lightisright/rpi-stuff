@@ -30,15 +30,18 @@ def index():
 
 @route('/current/')
 def current():
+    global sf
     return "Current album: " + sf.getCurrentAlbum()
 
 @route('/random/')
 def random():
+    global sf
     sf.displayRandomDir()
     return "Display random album"
 
 @route('/display/<album>')
 def display(album):
+    global sf
     sf.display(album)
     return "Currently displaying album: " + album
 
@@ -47,10 +50,13 @@ def return_res(filename):
     return display_resource("res/" + filename)
 
 def display_resource(filename):
-    return static_file(filename, root='./http-res/')
+    path = os.path.abspath(__file__)
+    dir_path = os.path.dirname(path)
+    return static_file(filename, root=dir_path+'/http-res/')
 
 @route('/albums/')
 def albums():
+    global sf
     return json.dumps(sf.dirIndex())
 
 @route('/albums/<album>/index/')
@@ -59,16 +65,19 @@ def album_index(album):
 
 @route('/image/<album>/<filename>')
 def display_image(album, filename):
+    global sf
     return static_file(filename, sf.getAlbumPath(album))
 
 @route('/print/<album>/<filename>')
 def print(album, filename):
+    global sf
     if sf.printImage(album, filename):
         return "Image added to print file list"
     return "Error"
 
 @route('/delete/<album>/<filename>')
 def delete(album, filename):
+    global sf
     if sf.deleteImage(album, filename):
         return "Image deleted & added to delete file list"
     return "Error"
