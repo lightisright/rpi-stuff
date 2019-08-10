@@ -137,7 +137,7 @@ $('#dirlst').change( function() {
 	imglst = new Array();
   imgIDs = new Array();
 	curimg = 0;
-	$.getJSON("/albums/"+$('#dirlst').val()+"/index/", function(result) {
+	$.getJSON("albums/"+$('#dirlst').val()+"/index/", function(result) {
 		$.each(result, function() {
 			imglst.push(this.filename);
       imgIDs.push(this.imgID);

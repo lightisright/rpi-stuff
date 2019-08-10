@@ -61,6 +61,7 @@ def albums():
 
 @route('/albums/<album>/index/')
 def album_index(album):
+    global sf
     return json.dumps(sf.imgIndex(album))
 
 @route('/image/<album>/<filename>')
