@@ -19,3 +19,23 @@ vim /etc/py-smartframe/config.ini
 ## Print & delete file list
 
 Creating the files manually is mandatory. PySmartframe won't do it for you.
+
+## Start Py-SmartFrame automatically
+
+Add this line to `/etc/rc.local` file, before `exit 0` (last line)
+
+```
+nohup python3 /path/to/py-smartframe/install/directory/py-smartframe > /dev/null &
+```
+
+## Use CRON service to automatically change displayed album
+
+Example of cron file configuration in `/etc/cron.d/py-smartframe`, with py-smartframe http server listening on `http://localhost:8080`
+
+```
+# Display random album at 6am, 1pm, 8.10pm and 10pm
+06 00 * * * root curl http://localhost:8080/random/ &> /dev/null
+13 00 * * * root curl http://localhost:8080/random/ &> /dev/null
+22 00 * * * root curl http://localhost:8080/random/ &> /dev/null
+20 10 * * * root curl http://localhost:8080/random/ &> /dev/null
+```
