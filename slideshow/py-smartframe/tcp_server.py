@@ -2,19 +2,21 @@ import socket
 import sys
 import os
 import smartframe
+from threading import Thread
 
 
-class TcpServer:
+class TcpServer(Thread):
 
     def __init__(self, ip, port, smartframe: smartframe.SmartFrame, debug: bool):
 
+        Thread.__init__(self)
         self.ip = ip
         self.port = port
         self.sf = smartframe
         self.debug = debug
 
 
-    def start(self):
+    def run(self):
 
         # Display random dir by default
         self.sf.displayRandomDir()

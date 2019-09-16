@@ -5,6 +5,7 @@ import os
 import smartframe
 from tcp_server import TcpServer
 from http_server import HttpServer
+from pir_manager import PirManager
 import threading
 import configparser
 import io
@@ -38,32 +39,20 @@ pir_pin = config.getint('pir', 'pin-number')
 sf = smartframe.SmartFrame(imgDir, print_file, delete_file, real_rpi_install)
 
 
-def start_pir():
-    from pir_manager import PirManager
-    pm = PirManager(pir_pin, shutoff_delay)
-    pm.start()
-
-def start_tcp_server():
-    tcps = TcpServer(tcp_hostname, tcp_port, sf, debug)
-    tcps.start()
-
-def start_http_server():
-    https = HttpServer(sf, http_hostname, http_port, debug)
-    https.start()
 
 def main():
 
     # enable PIR only if working with real RPI
-    t1 = threading.Thread(target=start_pir, args=[])
+    t1 = PirManager(pir_pin, shutoff_delay)
     if real_rpi_install:
         t1.start()
 
     # enable TCP server
-    t2 = threading.Thread(target=start_tcp_server, args=[])
+    t2 = TcpServer(tcp_hostname, tcp_port, sf, debug)
     t2.start()
 
     # enable HTTP server
-    t3 = threading.Thread(target=start_http_server, args=[])
+    t3 = HttpServer(sf, http_hostname, http_port, debug)
     t3.start()
 
 

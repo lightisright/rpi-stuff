@@ -2,18 +2,20 @@ import sys
 import time
 import RPi.GPIO as io
 import subprocess
+from threading import Thread
 
 io.setmode(io.BCM)
 
-class PirManager:
+class PirManager(Thread):
 
     def __init__(self, pir_pin, shutoff_delay):
 
+        Thread.__init__(self)
         self.SHUTOFF_DELAY = shutoff_delay
         self.PIR_PIN = pir_pin
 
 
-    def start(self):
+    def run(self):
 
         io.setup(self.PIR_PIN, io.IN)
         #io.setup(LED_PIN, io.OUT)

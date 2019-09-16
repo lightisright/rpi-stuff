@@ -2,10 +2,11 @@ from bottle import Bottle, route, run, error, static_file
 import os.path
 import json
 import smartframe
+from threading import Thread
 
 app = application = Bottle()
 
-class HttpServer:
+class HttpServer(Thread):
 
     def __init__(self, smartframe: smartframe.SmartFrame, hostname, port, debug):
         self.hostname = hostname
@@ -14,7 +15,7 @@ class HttpServer:
         global sf
         sf = smartframe
 
-    def start(self):     
+    def run(self):     
         run(host=self.hostname, port=self.port, debug=self.debug)
 
 
