@@ -9,6 +9,7 @@ app = application = Bottle()
 class HttpServer(Thread):
 
     def __init__(self, smartframe: smartframe.SmartFrame, hostname, port, debug):
+        Thread.__init__(self)
         self.hostname = hostname
         self.port = port
         self.debug = debug
