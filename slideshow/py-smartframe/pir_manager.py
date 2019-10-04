@@ -8,11 +8,18 @@ io.setmode(io.BCM)
 
 class PirManager(Thread):
 
-    def __init__(self, pir_pin, shutoff_delay):
+    def __init__(self, pir_pin, shutoff_delay, debug):
 
         Thread.__init__(self)
         self.SHUTOFF_DELAY = shutoff_delay
         self.PIR_PIN = pir_pin
+        self.debug = debug
+
+
+    def print(self, msg):
+        if self.debug:
+            print(msg)
+            sys.stdout.flush()
 
 
     def run(self):
@@ -27,8 +34,7 @@ class PirManager(Thread):
             if io.input(self.PIR_PIN):
                 last_motion_time = time.time()
                 #io.output(LED_PIN, io.LOW)
-                print(".")
-                sys.stdout.flush()
+                self.print(".")
                 if turned_off:
                     turned_off = False
                     self._turn_on()
@@ -42,11 +48,11 @@ class PirManager(Thread):
 
     def _turn_on(self):
         # activate HDMI output & right terminal display
-        print("PIR ON")
+        self.print("PIR ON")
         subprocess.call("tvservice -p && sleep 0.2 && chvt 1 && sleep 0.2 && chvt 2", shell=True)
 
     def _turn_off(self):
         # deactivate HDMI output
-        print("PIR OFF")
+        self.print("PIR OFF")
         subprocess.call("tvservice -o", shell=True)
 

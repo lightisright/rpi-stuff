@@ -43,7 +43,7 @@ sf = smartframe.SmartFrame(imgDir, print_file, delete_file, real_rpi_install)
 def main():
 
     # enable PIR only if working with real RPI
-    t1 = PirManager(pir_pin, shutoff_delay)
+    t1 = PirManager(pir_pin, shutoff_delay, debug)
     if real_rpi_install:
         t1.start()
 
