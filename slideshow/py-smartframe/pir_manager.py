@@ -47,7 +47,7 @@ class PirManager(Thread):
                     self._turn_off()
                 #if not turned_off and time.time() > (last_motion_time + 1):
                     #io.output(LED_PIN, io.HIGH)
-            time.sleep(.1)
+            time.sleep(.5)
 
     def _turn_on(self):
         # activate HDMI output & right terminal display
