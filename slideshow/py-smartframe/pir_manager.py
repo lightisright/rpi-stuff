@@ -11,9 +11,14 @@ class PirManager(Thread):
     def __init__(self, pir_pin, shutoff_delay, debug):
 
         Thread.__init__(self)
+        print("Starting PIR Manager")
         self.SHUTOFF_DELAY = shutoff_delay
         self.PIR_PIN = pir_pin
         self.debug = debug
+
+        io.setmode(io.BCM)
+        io.setup(self.PIR_PIN, io.IN)
+        #io.setup(LED_PIN, io.OUT)
 
 
     def print(self, msg):
@@ -24,8 +29,6 @@ class PirManager(Thread):
 
     def run(self):
 
-        io.setup(self.PIR_PIN, io.IN)
-        #io.setup(LED_PIN, io.OUT)
         turned_off = True
         last_motion_time = time.time()
 
