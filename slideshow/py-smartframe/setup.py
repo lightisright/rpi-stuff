@@ -8,6 +8,7 @@ pkg_name = name
 pkg_version = __version__
 
 requires_install = [
+    #"RPi.GPIO=*",     # not for test: only for real RPI install
     "bottle=*",
     "configparser=*",
 ]
