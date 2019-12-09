@@ -1,5 +1,6 @@
 ```
-pip install bottle
+pip3 install bottle
+pip3 install RPi.GPIO
 
 # create configuration file
 sudo mkdir /etc/py-smartframe/
@@ -13,6 +14,8 @@ vim /etc/py-smartframe/config.ini
 
 # configure at startup: add this line to /etc/rc.local
 # nohup /path/to/py-smartframe > /dev/null &
+#
+# with concatenated logs: nohup /path/to/py-smartframe >> /var/log/py-smartframe.log 2>&1 &
 
 ```
 
